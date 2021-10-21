@@ -1,6 +1,14 @@
-from code_object import CodeObject
-from console import Console
+from game.code_object import CodeObject
+from game.console import Console
+#from ascii_art import AsciiArt
+from game.arbiter import Arbiter
+from game.player import Player
 import random
+
+class InvalidGuess(Exception):
+        """ Raise this error when the guess is not a valid guess
+        """
+        pass
 
 class Director():
     """ This class is responsible for controlling the flow of gameplay
@@ -11,21 +19,23 @@ class Director():
         """
         self.console = Console()
         self.code = CodeObject()
+        self.arbiter = Arbiter()
 
+        # waiting
+        # self.arbiter = Arbiter()
+        # self.ascii_art = AsciiArt()
         
-        
-
-    
-
-
+ 
     def start_game(self):        
         """ The method used to start the game
         ARGS: self (Director)   : an instance of Director()
         """
 
 
-        code = self.code
+        code = self.code.secret_code
         console = self.console
+        # needs arbiter class
+        arbiter = self.arbiter
         
         # take player names
         player_1_name = console.take_input("Enter a name for Player 1: ")
@@ -41,43 +51,109 @@ class Director():
 
         # generate the code
         continue_playing = True
-
+        
+        # testing
+        code = 1234
         while continue_playing:
 
             # player one turn
+            p1_guess = self.player_turn(p1)
+
+            # arbiter checks Player 1's guess
+            hint = arbiter.check_guess(code,p1_guess)
+            console.display_output(hint)
+
+            # check victory condition
+            p1_is_victorious = self.check_victory(p1)
+            if p1_is_victorious:
+                """# p1 victory code"""
+                print('end')
+                continue_playing = False
+                break
+            else:
+                pass
 
             # player two turn
+            p2_guess = self.player_turn(p2)
 
-            #
+            # arbiter checks Player 2's guess
+            hint = arbiter.check_guess(code,p2_guess)
+            console.display_output(hint)
 
-            # START GAME LOOP
-            Player
+            p2_is_victorious = self.check_victory(p2)
+            if p2_is_victorious:
+                """# p2 victory code"""
+                print('end')
+                continue_playing = False
+                break
+            else:
+                pass
+
+            continue
+
+        print('FIN.')
 
 
     def player_turn(self, player):
-        """
+        """ 
         ARGS:
             self (Director)     : an instance of Director()
             player (Player)     : an instance of Player()
         RETURNS:
-            an integer
+            a guess (INT)
         """
-        self.console.display_output(f"{player.name}'s turn:")
+        console = self.console
 
+        console.display_output(f"{player.name}'s turn:")
+        is_valid_guess = False
 
+        # guess loop
+        while not is_valid_guess:
+            
+            try:
+                guess = int(console.take_input("What is your guess? "))
+            except ValueError:
+                console.display_output("Invalid input.")
+                continue
 
+            try:
+                is_valid_guess = self.validate_guess(guess)
+            except InvalidGuess:
+                console.display_output("Invalid input.")
+                continue
 
-        self.console.display_output("")
+            if is_valid_guess == True:
+                break
+            else:
+                continue
+        
+        # record player's last guess
+
+        player.last_guess = guess
+        return guess
+            
+    def check_victory(self, player):
+        """ Checks if a player's last guess was correct.
+        ARGS:
+        """
+        code = self.code.secret_code
+        guess = player.last_guess
+
+        if code == guess:
+            return True
+        else:
+            return False
+
 
     def validate_guess(self,guess):
         """ A method that validates whether or not a guess is within the expected range
         """
         min = self.code.min
         max = self.code.max
-        if guess in range(min,(max+1)):
+        if guess >= min and guess <= max:
             return True
         else:
-            return False
+            raise InvalidGuess
 
 # for testing
 def main():
@@ -130,4 +206,7 @@ def main():
         else:
             print(f"Testing {number}, expecting True: [FAIL]")
 
-main()
+if __name__ == "__main__":
+    from code_object import CodeObject
+    from console import Console
+    main()
