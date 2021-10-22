@@ -1,8 +1,8 @@
 from game.code_object import CodeObject
 from game.console import Console
-from game.ascii_art import AsciiArt
-from game.arbiter import Arbiter
-from game.player import Player
+from game.ascii_art_n import AsciiArt # update with Tianna's code
+from game.arbiter_n import Arbiter # update with Felix's code
+from game.player_n import Player  # update with Alex's code
 import random
 
 class InvalidGuess(Exception):
