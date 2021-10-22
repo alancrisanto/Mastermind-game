@@ -3,6 +3,7 @@
 class Player():
     def __init__(self,input_name) -> None:
         self.name = str(input_name)
-        self.last_guess = None
+        self.last_guess = '----'
+        self.last_hint = '****'
         self.guesses = []
     

@@ -6,9 +6,7 @@ class CodeObject:
     def __init__(self):
         self.min = 1000
         self.max = 9999
-        #self.secret_code = random.randint(self.min, self.max)
-        # TESTING
-        self.secret_code = 1234
+        self.secret_code = random.randint(self.min, self.max)
     # to reference secret code outside of this class- use "code.secret_code"
 
 # for testing

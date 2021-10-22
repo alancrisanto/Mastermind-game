@@ -6,5 +6,5 @@ class Arbiter():
     def check_guess(self,code,guess):
         """
         """
-        hint = "TEST WORKING"
+        hint = "[[ Arbiter() HINT ]]"
         return hint

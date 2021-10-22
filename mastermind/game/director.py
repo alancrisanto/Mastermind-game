@@ -1,6 +1,6 @@
 from game.code_object import CodeObject
 from game.console import Console
-#from ascii_art import AsciiArt
+from game.ascii_art import AsciiArt
 from game.arbiter import Arbiter
 from game.player import Player
 import random
@@ -20,6 +20,9 @@ class Director():
         self.console = Console()
         self.code = CodeObject()
         self.arbiter = Arbiter()
+        self.ascii = AsciiArt()
+
+        self.continue_playing = True
 
         # waiting
         # self.arbiter = Arbiter()
@@ -31,11 +34,12 @@ class Director():
         ARGS: self (Director)   : an instance of Director()
         """
 
-
         code = self.code.secret_code
         console = self.console
-        # needs arbiter class
         arbiter = self.arbiter
+        ascii = self.ascii
+        
+        continue_playing = self.continue_playing
         
         # take player names
         player_1_name = console.take_input("Enter a name for Player 1: ")
@@ -49,50 +53,35 @@ class Director():
         self.PlayerTwo = Player(player_2_name)
         p2 = self.PlayerTwo
 
-        # generate the code
-        continue_playing = True
+        # TEST CODE
+        test = True             
+        if test:
+            code = 1234
         
-        # testing
-        code = 1234
         while continue_playing:
 
-            # player one turn
-            p1_guess = self.player_turn(p1)
+            player_list = [ p1, p2 ]
 
-            # arbiter checks Player 1's guess
-            hint = arbiter.check_guess(code,p1_guess)
-            console.display_output(hint)
+            for player in player_list:
 
-            # check victory condition
-            p1_is_victorious = self.check_victory(p1)
-            if p1_is_victorious:
-                """# p1 victory code"""
-                print('end')
-                continue_playing = False
-                break
-            else:
-                pass
+                # take player's guess
+                guess = self.player_turn(player)
 
-            # player two turn
-            p2_guess = self.player_turn(p2)
+                # check for victory
+                if guess == code:
+                    continue_playing = False
+                    self.victory_for(player)
+                    break
 
-            # arbiter checks Player 2's guess
-            hint = arbiter.check_guess(code,p2_guess)
-            console.display_output(hint)
+                # arbiter compares Player's guess
+                hint = arbiter.check_guess(code,guess)
 
-            p2_is_victorious = self.check_victory(p2)
-            if p2_is_victorious:
-                """# p2 victory code"""
-                print('end')
-                continue_playing = False
-                break
-            else:
-                pass
+                # display hints
+                self.display_hints(player_list)
 
-            continue
-
-        print('FIN.')
-
+        test_smiley = ascii.smiley()
+        print(test_smiley)
+        console.display_output("GAME END")
 
     def player_turn(self, player):
         """ 
@@ -131,6 +120,21 @@ class Director():
 
         player.last_guess = guess
         return guess
+
+    def display_hints(self, player_list):
+        """ 
+        ARGS:
+            self (Director)     : an instance of Director()
+            player_list (LIST)  : the list of Player() Objects
+        RETURNS:
+            a guess (INT)
+        """
+        console = self.console
+
+        console.display_output("-" * 32)
+        for player in player_list:
+            console.display_output(f"Player {player.name}: {player.last_guess}, {player.last_hint}")
+        console.display_output("-" * 32)
             
     def check_victory(self, player):
         """ Checks if a player's last guess was correct.
@@ -143,6 +147,15 @@ class Director():
             return True
         else:
             return False
+
+    def victory_for(self, player):
+        """Execute if a player is victorious
+        ARGS:
+            self (Director)     : an instance of Director()
+            player (Player)     : an instance of Player()        
+        """
+        console = self.console
+        console.display_output(f"{player.name} won!")
 
 
     def validate_guess(self,guess):
