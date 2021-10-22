@@ -5,11 +5,6 @@ from game.arbiter_n import Arbiter # update with Felix's code
 from game.player_n import Player  # update with Alex's code
 import random
 
-class InvalidGuess(Exception):
-        """ Raise this error when the guess is not a valid guess
-        """
-        pass
-
 class Director():
     """ This class is responsible for controlling the flow of gameplay
     """
@@ -24,43 +19,60 @@ class Director():
 
         self.continue_playing = True
 
-        # waiting
-        # self.arbiter = Arbiter()
-        # self.ascii_art = AsciiArt()
-        
- 
-    def start_game(self):        
-        """ The method used to start the game
-        ARGS: self (Director)   : an instance of Director()
+    class InvalidPlayerCount(Exception):
+        """ Raised when player number is not valid
         """
-
+        pass
+       
+    def start_game(self):        
+        """ The method contains the entire game loop from start to end
+        ARGS:
+            self (Director)     : an instance of Director()
+            player_count (INT)  : an instance
+        """
+        # define variables
         code = self.code.secret_code
         console = self.console
         arbiter = self.arbiter
         ascii = self.ascii
-        
-        continue_playing = self.continue_playing
-        
-        # take player names
-        player_1_name = console.take_input("Enter a name for Player 1: ")
-        player_2_name = console.take_input("Enter a name for Player 2: ")
 
-        # create PlayerOne object
-        self.PlayerOne = Player(player_1_name)
-        p1 = self.PlayerOne
+        continue_playing = self.continue_playing
+
+        # start_game() only
+        default_player_count = 2
+        player_list = []
+
+        # start
+        self.start_banner()
+
+        # make sure player count is valid
+        player_count = console.take_input("How many players are playing? (1-10) ")
         
-        # create PlayerTwo object
-        self.PlayerTwo = Player(player_2_name)
-        p2 = self.PlayerTwo
+        try:
+            self.check_player_count(player_count)
+        except self.InvalidPlayerCount:
+            if player_count != "":
+                console.display_output(f"Invalid input: '{player_count}'")
+            console.display_output(f"Defaulting to {default_player_count} players")
+            player_count = default_player_count
+
+        console.display_output(f"\nStarting a {player_count}-player game.\n")
+
+        # Create Player() objects
+        for i in range(1,player_count+1):
+            player_name = console.take_input(f"Enter a name for Player {i}: ")
+
+            PlayerObject = Player(player_name)
+            player_list.append(PlayerObject)
 
         # TEST CODE
+        # remove before submitting
         test = True             
         if test:
             code = 1234
         
-        while continue_playing:
-
-            player_list = [ p1, p2 ]
+        # start gameplay
+        while continue_playing:            
 
             for player in player_list:
 
@@ -82,6 +94,32 @@ class Director():
         test_smiley = ascii.smiley()
         print(test_smiley)
         console.display_output("GAME END")
+
+    def check_player_count(self,player_count):
+        """ Checks if player_count is valid
+        """
+        try:
+            if player_count == int(player_count) and player_count >= 1 and player_count <= 10:
+                pass
+            else:
+                raise self.InvalidPlayerCount
+
+        except ValueError:
+            raise self.InvalidPlayerCount
+
+        
+    class InvalidGuess(Exception):
+        """ Error when the guess is not a valid guess
+        """
+        pass
+
+    def start_banner(self):
+        """ Displays a banner at the start of the game
+        """
+        console = self.console
+        console.display_output("="*48)
+        console.display_output('{:1}{:^46s}{:1}'.format("|","MASTERMIND","|"))
+        console.display_output("="*48)
 
     def player_turn(self, player):
         """ 
@@ -107,7 +145,7 @@ class Director():
 
             try:
                 is_valid_guess = self.validate_guess(guess)
-            except InvalidGuess:
+            except self.InvalidGuess:
                 console.display_output("Invalid input.")
                 continue
 
@@ -130,11 +168,12 @@ class Director():
             a guess (INT)
         """
         console = self.console
-
-        console.display_output("-" * 32)
+        
+        console.display_output("-" * 48)
         for player in player_list:
-            console.display_output(f"Player {player.name}: {player.last_guess}, {player.last_hint}")
-        console.display_output("-" * 32)
+            console.display_output('{:28}{:10}{:10}'.format(f"Player {player.name}: ",f"{player.last_guess}",f"{player.last_hint}"))
+            #console.display_output(f"Player {player.name}: {player.last_guess}, {player.last_hint}")
+        console.display_output("-" * 48)
             
     def check_victory(self, player):
         """ Checks if a player's last guess was correct.
@@ -157,7 +196,6 @@ class Director():
         console = self.console
         console.display_output(f"{player.name} won!")
 
-
     def validate_guess(self,guess):
         """ A method that validates whether or not a guess is within the expected range
         """
@@ -166,7 +204,7 @@ class Director():
         if guess >= min and guess <= max:
             return True
         else:
-            raise InvalidGuess
+            raise self.InvalidGuess
 
 # for testing
 def main():
