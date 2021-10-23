@@ -1,3 +1,17 @@
+# W06 Team Challenge: Mastermind
+
+## Group Members:
+* Alan Crisanto
+* Nephi Malit
+* Tatenda Felix Mukaro
+* Tianna DeSpain
+
+## The URL for your team's remote repository:
+https://github.com/nephi-byui/cse210-tc06.git
+
+## The grading category that best describes your team's work
+* Exceeds requirements (5)
+
 ## Basic Requirements Met:
 * The program must use the Mastermind template.
 * The program must have a README file with assignment and author names.
