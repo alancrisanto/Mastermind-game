@@ -1,5 +1,3 @@
-#from player import Player
-
 class Arbiter():
     
         """Responsible for taking player's guess, checking againnst the code, returning hint
@@ -13,7 +11,6 @@ class Arbiter():
 
         def _check_guess(self, code, guess):
             """Creates hints based on the code and guesses given.
-           
             Args:
                 self (Arbiter)  : an instance of Arbiter
                 code (INT)      : the secret code
