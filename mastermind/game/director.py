@@ -11,7 +11,7 @@ class Director():
     """ This class is responsible for controlling the flow of gameplay
     """
     def __init__(self):
-        """ The constructor method.
+        """ The constructor method for the Director() class.
         ARGS: self (Director)   : an instance of Director()
         """
         self.console = Console()

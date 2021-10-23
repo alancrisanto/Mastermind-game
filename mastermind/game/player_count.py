@@ -8,6 +8,11 @@ class PlayerCount():
         range           : a string showing the allowed range
     """
     def __init__(self) -> None:
+        """ Constructor method for the PlayerCount() class
+        ARGS:
+            self (PlayerCount)  : an instance of PlayerCount()
+        """
+        
         self.default = 2
         self.min = 1
         self.max = 10
