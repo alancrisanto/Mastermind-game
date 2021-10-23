@@ -33,7 +33,6 @@ class Director():
         
         # start
         art.title_screen()
-        self.start_banner()
         
         # Enter number of Players
         Count = PlayerCount()        
@@ -80,14 +79,6 @@ class Director():
                 self.display_hints(player_list)
        
         art.game_over()
-
-    def start_banner(self):
-        """ Displays a banner at the start of the game
-        """
-        console = self.console
-        console.display_output("="*48)
-        console.display_output('{:1}{:^46s}{:1}'.format("|","MASTERMIND","|"))
-        console.display_output("="*48)
 
     def player_turn(self, player):
         """ 
