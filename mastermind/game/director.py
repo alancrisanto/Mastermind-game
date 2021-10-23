@@ -153,15 +153,6 @@ class Director():
             console.display_output('{:2}{:34}{:6}{:6}'.format("",f"Player {player.name}: ",f"{player.last_guess}",f"{player.last_hint}"))
         console.display_output("-" * 48)
             
-    def victory_for(self, player):
-        """Execute if a player is victorious
-        ARGS:
-            self (Director)     : an instance of Director()
-            player (Player)     : an instance of Player()        
-        """
-        console = self.console
-
-
     def ask_play_again(self):
         """ Ask if players want to play again
         ARGS:
