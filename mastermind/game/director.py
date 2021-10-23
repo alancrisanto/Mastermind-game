@@ -23,7 +23,8 @@ class Director():
         """ The method contains the entire game loop from start to end
         ARGS:
             self (Director)     : an instance of Director()
-            player_count (INT)  : an instance
+        RETURNS:
+            none
         """
         # define variables       
         console = self.console
@@ -143,7 +144,7 @@ class Director():
         """ Displays the last guesses and hints for all players
         ARGS:
             self (Director)     : an instance of Director()
-            player_list (LIST)  : the list of Player() Objects
+            player_list (LIST)  : a list of Player() Objects
         RETURNS:
             a guess (INT)
         """
@@ -159,7 +160,7 @@ class Director():
         ARGS:
             self (Director)     : an instance of Director()
         RETURNS:
-            Boolean
+            BOOL
         """
         console = self.console
 
