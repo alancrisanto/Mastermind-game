@@ -108,8 +108,7 @@ class Director():
                 console.display_output("Invalid input.")
 
         # record player's last guess
-        player.last_guess = guess
-        
+        player.last_guess = guess        
         return guess
 
     def validate_guess(self,guess):
