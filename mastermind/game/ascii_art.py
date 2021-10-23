@@ -27,7 +27,7 @@ class AsciiArt:
         ARGS:
             self (AsciiArt) : an instance of AsciiArt()
         """
-        self.console.display_output("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ Almost there, great job!\n")
+        self.console.display_output(" \_[^_^]_/ Almost there, great job!\n")
 
     def whoops(self):
         """ Prints an encouraging message
@@ -35,7 +35,7 @@ class AsciiArt:
         ARGS:
             self (AsciiArt) : an instance of AsciiArt()
         """        
-        self.console.display_output("¯\_(ツ)_/¯ Awww. Don't give up! \n")
+        self.console.display_output("  ~(T_T)~  Awww, nothing. Don't give up! \n")
 
     def you_win(self,player_name):
         """ Prints a "YOU WIN" message
@@ -60,10 +60,6 @@ class AsciiArt:
 
         for line in lines:
             self.console.display_output(line)          
-
-                                                  
-                                                  
-
 
     def game_over(self):
         """ Prints a "GAME OVER" message
