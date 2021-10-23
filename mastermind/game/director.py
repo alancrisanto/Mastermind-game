@@ -6,7 +6,7 @@ if __name__ == "game.director":
     from game.player import Player
     from game.player_count import PlayerCount
 
-class Director():
+class Director:
     """ This class is responsible for controlling the flow of gameplay
     ATTRIBUTES:
         console (Console)           : an instance of Console()
@@ -19,20 +19,24 @@ class Director():
         """
         self.console = Console()
       
-    def start_game(self):        
-        """ The method contains the entire game loop from start to end
+    def start_game(self,is_test=False):        
+        """ The method contains the entire game loop
         ARGS:
             self (Director)     : an instance of Director()
+            is_test (BOOL)      : toggles test/debug features
         RETURNS:
             none
         """
-        # define variables       
         console = self.console
         arbiter = Arbiter()
         art = AsciiArt()
-        
+
         # start
         art.title_screen()
+        
+        # notify if Test mode is enabled
+        if is_test:
+            console.display_output( f"Test mode is enabled.\n")
         
         # Enter number of Players
         Count = PlayerCount()        
@@ -55,13 +59,10 @@ class Director():
             self.code_object = CodeObject()
             code = self.code_object.secret_code # The code to be guessed (INT)
             console.display_output("Code generated. Good luck!\n")
-
-            # TEST CODE
-            # remove before submitting
-            test = True             
-            if test:
-                #code = 1234
-                print("code is: " + str(code))
+            
+            if is_test:
+                console.display_output( f"Test mode is enabled.\n"
+                                         "Code is: {str(code)}")
 
             # start gameplay
             continue_playing = True
@@ -80,7 +81,7 @@ class Director():
                         break
 
                     # arbiter compares Player's guess and updates hint
-                    player.last_hint = arbiter._check_guess(code,guess)
+                    player.last_hint = arbiter.check_guess(code,guess)
 
                     # display art 
                     art.encouragement(player.last_hint)

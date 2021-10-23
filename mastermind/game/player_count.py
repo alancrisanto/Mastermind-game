@@ -2,26 +2,28 @@ class PlayerCount():
     """ A class of objects responsible for checking whether
     the entered number of players is within the acceptable range.
     ATTRIBUTES:
-        _default (INT)  : the default number of players
-        _min (INT)      : the minimum allowed players
-        _max (INT)      : the maximum allowed players
-        range           : a string showing the allowed range
+        default (INT)  : the default number of players
+        min (INT)      : the minimum allowed players
+        max (INT)      : the maximum allowed players
+        range (STR)    : a string showing the allowed range
+        message (STR)  : a string containing a message
+        
     """
     def __init__(self) -> None:
         """ Constructor method for the PlayerCount() class
         ARGS:
             self (PlayerCount)  : an instance of PlayerCount()
         """
-        
         self.default = 2
         self.min = 1
         self.max = 10
         self.range = f"({self.min}-{self.max})"
-
         self.message = ""
 
     def set_player_count(self, player_count):
-        """ Validates that the number of players entered is valid, updates the message
+        """ Validates that the number of players entered is valid;
+            updates the message;
+            and returns a valid player count integer
         ARGS:
             self (PlayerCount)  : an instance of PlayerCount()
             player_count (INT)  : the number of players

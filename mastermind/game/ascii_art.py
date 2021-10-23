@@ -1,11 +1,16 @@
-from game.console import Console
+if __name__ == "game.ascii_art":
+    from game.console import Console
 
 class AsciiArt:
     """Responsible for displaying ASCII art and user-friendly messages.
     ATTRIBUTES:
         console (Console)   : an instance of Console()
     """
-    def __init__(self) -> None:        
+    def __init__(self):
+        """ Constructor method for AsciiArt() objects
+        ARGS:
+            self (AsciiArt) : an instance of AsciiArt()
+        """        
         self.console = Console()
 
     def title_screen(self):
@@ -109,10 +114,12 @@ class AsciiArt:
 def main():
     # Create a AsciiArt object
     art = AsciiArt()
+    art.title_screen()
     art.good_job()
     art.whoops()
     art.game_over()
-
+    art.game_over_one_line()
 
 if __name__ == "__main__":
+    from console import Console
     main()

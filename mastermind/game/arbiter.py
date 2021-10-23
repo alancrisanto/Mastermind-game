@@ -4,9 +4,15 @@ class Arbiter():
             none
         """
         def __init__(self):
+            """Constructor for Arbiter() class
+            Args:
+                self (Arbiter)  : an instance of Arbiter
+            RETURNS:
+                none
+            """ 
             pass
 
-        def _check_guess(self, code, guess):
+        def check_guess(self, code, guess):
             """Creates hints based on the code and guesses given.
             Args:
                 self (Arbiter)  : an instance of Arbiter
@@ -15,6 +21,7 @@ class Arbiter():
             RETURNS:
                 hint (STR)
             """ 
+            # convert to string
             code = str(code)
             guess = str(guess)
             
@@ -32,3 +39,30 @@ class Arbiter():
                     hint += "*"
 
             return hint
+
+# test code
+def main():
+    arbiter = Arbiter()
+
+    code = 1234
+    guesses = [ [1111, "xooo"],
+                [2222, "oxoo"],
+                [3333, "ooxo"],
+                [4444, "ooox"],
+                [5555, "****"],
+                [6666, "****"],
+                [7777, "****"],
+                [8888, "****"],
+                [9999, "****"],
+                [1234, "xxxx"]  ]
+    
+    TEST_GUESS = 0
+    EXPECTED_RESULT = 1
+
+    for set in guesses:
+        result = arbiter.check_guess(code, set[TEST_GUESS])
+        assert result == set[EXPECTED_RESULT]
+        print(f"{result} vs. {set[EXPECTED_RESULT]} : OK")       
+
+if __name__ == "__main__":
+    main()

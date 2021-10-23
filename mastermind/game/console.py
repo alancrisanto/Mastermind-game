@@ -17,7 +17,6 @@ class Console:
         """
         return input(prompt)
 
-
     def display_output(self, string=""):
         """ Prints text to be read by the user
             Instead of using print() in your functions
@@ -27,7 +26,6 @@ class Console:
             string: the string to be printed, empty by default
         """
         print(string)
-
 
 # for testing
 def main():

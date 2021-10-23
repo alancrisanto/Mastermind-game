@@ -37,8 +37,6 @@ def main():
     console.display_output("Printing code.secret_code")
     console.display_output(f"The code is: {code.secret_code}")
 
-
-
 if __name__ == "__main__":
     from console import Console
     main()
