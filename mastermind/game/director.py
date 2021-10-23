@@ -8,13 +8,14 @@ if __name__ == "game.director":
 
 class Director():
     """ This class is responsible for controlling the flow of gameplay
+    ATTRIBUTES:
+        console (Console)           : an instance of Console()
+        code_object (CodeObject)    : an instance of CodeObject()
     """
     def __init__(self):
         """ The constructor method for the Director() class.
         ARGS:
             self (Director)             : an instance of Director()
-            console (Console)           : an instance of Console()
-            code_object (CodeObject)    : an instance of CodeObject()
         """
         self.console = Console()
       
