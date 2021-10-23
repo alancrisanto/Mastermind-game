@@ -1,6 +1,6 @@
 import random
 if __name__ == "game.player":
-    from console import Console
+    from game.console import Console
 
 class Player():
     """ Responsible for storing player's name, guesses, and hints
