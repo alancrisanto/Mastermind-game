@@ -138,7 +138,7 @@ class Director():
 
         console.display_output("-" * 48)
         for player in player_list:
-            console.display_output('{:32}{:8}{:8}'.format(f"Player {player.name}: ",f"{player.last_guess}",f"{player.last_hint}"))
+            console.display_output('{:2}{:34}{:6}{:6}'.format("",f"Player {player.name}: ",f"{player.last_guess}",f"{player.last_hint}"))
         console.display_output("-" * 48)
             
     def victory_for(self, player):

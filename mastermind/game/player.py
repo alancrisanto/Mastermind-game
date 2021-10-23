@@ -12,7 +12,7 @@ class Player():
             self (Player)       : an instance of Player()
             input_name (STR)    : the name of the player
         """
-        self.max_name_length = 28
+        self.max_name_length = 24
         self.name = str(input_name)
         if len(self.name) > self.max_name_length:
             self.__clip_name()
