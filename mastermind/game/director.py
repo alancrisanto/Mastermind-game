@@ -80,7 +80,6 @@ class Director():
                 # display all hints
                 self.display_hints(player_list)
        
-
         art.game_over()
 
     def start_banner(self):
@@ -125,6 +124,11 @@ class Director():
 
     def validate_guess(self,guess):
         """ A method that validates whether or not a guess is within the expected range
+        ARGS:
+            self (Director)     : an instance of Director()
+            guess (INT)         : the player's guess
+        RETURNS:
+            BOOL
         """
         min = self.code.min
         max = self.code.max
@@ -134,7 +138,7 @@ class Director():
             return False
 
     def display_hints(self, player_list):
-        """ 
+        """ Displays the last guesses and hints for all players
         ARGS:
             self (Director)     : an instance of Director()
             player_list (LIST)  : the list of Player() Objects
@@ -145,22 +149,9 @@ class Director():
 
         console.display_output("-" * 48)
         for player in player_list:
-            console.display_output('{:28}{:10}{:10}'.format(f"Player {player.name}: ",f"{player.last_guess}",f"{player.last_hint}"))
-            #console.display_output(f"Player {player.name}: {player.last_guess}, {player.last_hint}")
+            console.display_output('{:32}{:8}{:8}'.format(f"Player {player.name}: ",f"{player.last_guess}",f"{player.last_hint}"))
         console.display_output("-" * 48)
             
-    def check_victory(self, player):
-        """ Checks if a player's last guess was correct.
-        ARGS:
-        """
-        code = self.code.secret_code
-        guess = player.last_guess
-
-        if code == guess:
-            return True
-        else:
-            return False
-
     def victory_for(self, player):
         """Execute if a player is victorious
         ARGS:
