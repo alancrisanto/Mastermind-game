@@ -1,20 +1,50 @@
+from game.console import Console
+
 class AsciiArt:
-    """Responsible for displaying ASCII art and user-friendly messages."""
-    
-    def __init__(self) -> None:
-        pass
+    """Responsible for displaying ASCII art and user-friendly messages.
+    ATTRIBUTES:
+        console (Console)   : an instance of Console()
+    """
+    def __init__(self) -> None:        
+        self.console = Console()
+
+    def title_screen(self):
+        """
+        """
+        lines = [   "___  ___  ___   _____ _____ ______________  ________ _   _______ ",
+                    "|  \/  | / _ \ /  ___|_   _|  ___| ___ \  \/  |_   _| \ | |  _  \\",
+                    "| .  . |/ /_\ \\\ `--.  | | | |__ | |_/ / .  . | | | |  \| | | | |",
+                    "| |\/| ||  _  | `--. \ | | |  __||    /| |\/| | | | | . ` | | | |",
+                    "| |  | || | | |/\__/ / | | | |___| |\ \| |  | |_| |_| |\  | |/ / ",
+                    "\_|  |_/\_| |_/\____/  \_/ \____/\_| \_\_|  |_/\___/\_| \_/___/  ",
+                    "="*65, ]
+        for line in lines:
+            self.console.display_output(line)
 
     def good_job(self):
-        #to be used when the guess is correct
-        print("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ \n You got it, great job! \n")
+        """ Prints an encouraging message
+            to be used when the guess contains correct numbers
+        ARGS:
+            self (AsciiArt) : an instance of AsciiArt()
+        """
+        self.console.display_output("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ Almost there, great job!\n")
 
     def whoops(self):
-        #to be used when the guess contains no right numbers
-        print("¯\_(ツ)_/¯ \n Don't give up! \n")
+        """ Prints an encouraging message
+            to be used when the guess contains no right numbers
+        ARGS:
+            self (AsciiArt) : an instance of AsciiArt()
+        """        
+        self.console.display_output("¯\_(ツ)_/¯ Awww. Don't give up! \n")
 
     def game_over(self):
-        #for the end of game message
-        print("┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼ \n"
+        """ Prints a "GAME OVER" message
+        ARGS:
+            self (AsciiArt) : an instance of AsciiArt()
+        """
+        
+        self.console.display_output(
+            "┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼ \n"
             "███▀▀▀██┼███▀▀▀███┼███▀█▄█▀███┼██▀▀▀ \n"
             "██┼┼┼┼██┼██┼┼┼┼┼██┼██┼┼┼█┼┼┼██┼██┼┼┼ \n"
             "██┼┼┼▄▄▄┼██▄▄▄▄▄██┼██┼┼┼▀┼┼┼██┼██▀▀▀ \n"
@@ -28,6 +58,29 @@ class AsciiArt:
             "███▄▄▄███┼┼┼─▀█▀┼┼─┼██▄▄▄┼██┼┼┼┼┼██▄ \n"
             "\n")
 
+    def game_over_one_line(self):
+        """ Prints a "GAME OVER" message
+        ARGS:
+            self (AsciiArt) : an instance of AsciiArt()
+        """
+        lines = [   "┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼",
+                    "███▀▀▀██┼███▀▀▀███┼███▀█▄█▀███┼██▀▀▀┼┼┼███▀▀▀███┼▀███┼┼██▀┼██▀▀▀┼██▀▀▀▀██▄┼",
+                    "██┼┼┼┼██┼██┼┼┼┼┼██┼██┼┼┼█┼┼┼██┼██┼┼┼┼┼┼██┼┼┼┼┼██┼┼┼██┼┼██┼┼██┼┼┼┼██┼┼┼┼┼██┼",
+                    "██┼┼┼▄▄▄┼██▄▄▄▄▄██┼██┼┼┼▀┼┼┼██┼██▀▀▀┼┼┼██┼┼┼┼┼██┼┼┼██┼┼██┼┼██▀▀▀┼██▄▄▄▄▄▀▀┼",
+                    "██┼┼┼┼██┼██┼┼┼┼┼██┼██┼┼┼┼┼┼┼██┼██┼┼┼┼┼┼██┼┼┼┼┼██┼┼┼██┼┼█▀┼┼██┼┼┼┼██┼┼┼┼┼██┼",
+                    "███▄▄▄██┼██┼┼┼┼┼██┼██┼┼┼┼┼┼┼██┼██▄▄▄┼┼┼███▄▄▄███┼┼┼─▀█▀┼┼─┼██▄▄▄┼██┼┼┼┼┼██▄",
+                    "┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼" ]
+        for line in lines:
+            self.console.display_output(line)
+
+    def encouragement(self, hint):
+        """
+        """
+        if "o" in hint or "x" in hint:
+            self.good_job()
+
+        elif "o" not in hint and "x" not in hint:
+            self.whoops()
 
 # for testing
 def main():

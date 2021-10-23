@@ -37,6 +37,7 @@ class Director():
         art = self.art
         
         # start
+        art.title_screen()
         self.start_banner()
         
         # Enter number of Players
@@ -76,6 +77,9 @@ class Director():
 
                 # arbiter compares Player's guess and updates hint
                 player.last_hint = arbiter._check_guess(code,guess)
+
+                # display art 
+                art.encouragement(player.last_hint)
 
                 # display all hints
                 self.display_hints(player_list)
