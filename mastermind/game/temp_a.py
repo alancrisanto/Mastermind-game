@@ -26,6 +26,7 @@ class Arbiter():
         hint = ""
 
         for i in range(length):
+            
             # correct number in correct position:
             if str_guess[i] == str_code[i]:
                 hint = hint + "x"
