@@ -18,12 +18,7 @@ class Director():
         self.code = CodeObject()
         self.arbiter = Arbiter()
         self.art = AsciiArt()
-
-    class InvalidPlayerCount(Exception):
-        """ Raised when player number is not valid
-        """
-        pass
-       
+      
     def start_game(self):        
         """ The method contains the entire game loop from start to end
         ARGS:
