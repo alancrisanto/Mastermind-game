@@ -70,7 +70,6 @@ class AsciiArt:
         ARGS:
             self (AsciiArt) : an instance of AsciiArt()
         """
-        
         self.console.display_output(
             "┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼ \n"
             "███▀▀▀██┼███▀▀▀███┼███▀█▄█▀███┼██▀▀▀ \n"
@@ -84,7 +83,7 @@ class AsciiArt:
             "██┼┼┼┼┼██┼┼┼██┼┼██┼┼██▀▀▀┼██▄▄▄▄▄▀▀┼ \n"
             "██┼┼┼┼┼██┼┼┼██┼┼█▀┼┼██┼┼┼┼██┼┼┼┼┼██┼ \n"
             "███▄▄▄███┼┼┼─▀█▀┼┼─┼██▄▄▄┼██┼┼┼┼┼██▄ \n"
-            "\n")
+            "┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼ \n")
 
     def game_over_one_line(self):
         """ Prints a "GAME OVER" message
