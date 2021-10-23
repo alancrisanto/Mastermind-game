@@ -1,23 +1,22 @@
-from game.code_object import CodeObject
-from game.console import Console
-from game.ascii_art import AsciiArt
-from game.arbiter import Arbiter
-from game.player import Player
-from game.player_count import PlayerCount
-
-print(__name__)
+if __name__ == "game.director":
+    from game.code_object import CodeObject
+    from game.console import Console
+    from game.ascii_art import AsciiArt
+    from game.arbiter import Arbiter
+    from game.player import Player
+    from game.player_count import PlayerCount
 
 class Director():
     """ This class is responsible for controlling the flow of gameplay
     """
     def __init__(self):
         """ The constructor method for the Director() class.
-        ARGS: self (Director)   : an instance of Director()
+        ARGS:
+            self (Director)             : an instance of Director()
+            console (Console)           : an instance of Console()
+            code_object (CodeObject)    : an instance of CodeObject()
         """
         self.console = Console()
-        self.code = CodeObject()
-        self.arbiter = Arbiter()
-        self.art = AsciiArt()
       
     def start_game(self):        
         """ The method contains the entire game loop from start to end
@@ -25,11 +24,10 @@ class Director():
             self (Director)     : an instance of Director()
             player_count (INT)  : an instance
         """
-        # define variables
-        code = self.code.secret_code
+        # define variables       
         console = self.console
-        arbiter = self.arbiter
-        art = self.art
+        arbiter = Arbiter()
+        art = AsciiArt()
         
         # start
         art.title_screen()
@@ -47,38 +45,52 @@ class Director():
             PlayerObject = Player(player_name)
             player_list.append(PlayerObject)
 
-        # TEST CODE
-        # remove before submitting
-        test = True             
-        if test:
-            #code = 1234
-            print("code is: " + str(code))
+        # game loop
+        play_again = True
+        while play_again:
 
-        continue_playing = True
+            # generate code
+            self.code_object = CodeObject()
+            code = self.code_object.secret_code # The code to be guessed (INT)
+            console.display_output("Code generated. Good luck!\n")
 
-        # start gameplay
-        while continue_playing:
-            for player in player_list:
+            # TEST CODE
+            # remove before submitting
+            test = True             
+            if test:
+                #code = 1234
+                print("code is: " + str(code))
 
-                # take player's guess
-                guess = self.player_turn(player)
+            # start gameplay
+            continue_playing = True
 
-                # check for victory
-                if guess == code:
-                    continue_playing = False
-                    self.victory_for(player)
-                    break
+            while continue_playing:
+                for player in player_list:
 
-                # arbiter compares Player's guess and updates hint
-                player.last_hint = arbiter._check_guess(code,guess)
+                    # take player's guess
+                    guess = self.player_turn(player)
 
-                # display art 
-                art.encouragement(player.last_hint)
+                    # check for victory
+                    if guess == code:
+                        continue_playing = False
+                        # victory
+                        art.you_win(player.name)
+                        break
 
-                # display all hints
-                self.display_hints(player_list)
+                    # arbiter compares Player's guess and updates hint
+                    player.last_hint = arbiter._check_guess(code,guess)
+
+                    # display art 
+                    art.encouragement(player.last_hint)
+
+                    # display all hints
+                    self.display_hints(player_list)
+
+            # ask if they want to play again
+            play_again = self.ask_play_again()
        
         art.game_over()
+        console.display_output("Thank you for playing Mastermind!")
 
     def player_turn(self, player):
         """ 
@@ -119,8 +131,8 @@ class Director():
         RETURNS:
             BOOL
         """
-        min = self.code.min
-        max = self.code.max
+        min = self.code_object.min
+        max = self.code_object.max
         if guess >= min and guess <= max:
             return True
         else:
@@ -148,13 +160,33 @@ class Director():
             player (Player)     : an instance of Player()        
         """
         console = self.console
-        console.display_output(f"{player.name} won!")
 
-# for testing
+
+    def ask_play_again(self):
+        """ Ask if players want to play again
+        ARGS:
+            self (Director)     : an instance of Director()
+        RETURNS:
+            Boolean
+        """
+        console = self.console
+
+        is_valid = False
+        while not is_valid:
+            answer = console.take_input("Do you want to play again? (y/n) ")
+            if answer in ["y", "Y", "n", "N"]:
+                is_valid = True
+            else:
+                console.display_output("Invalid input")
+
+        if answer in ["y", "Y"]:
+            return True
+        else:
+            return False
+
 def main():
-    print("Creating Director() instance...")
-    dir = Director()
-    print("Success.")
+    print("You are running this file from the package folder.")
+    print("Do not run this directly, run '__main__.py'")
 
 if __name__ == "__main__":
     main()

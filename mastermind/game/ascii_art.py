@@ -37,6 +37,34 @@ class AsciiArt:
         """        
         self.console.display_output("¯\_(ツ)_/¯ Awww. Don't give up! \n")
 
+    def you_win(self,player_name):
+        """ Prints a "YOU WIN" message
+        ARGS:
+            self (AsciiArt) : an instance of AsciiArt()
+        """        
+        lines = [   "                                                  ",
+                    " __     ______  _    _  __          _______ _   _ ",
+                    " \ \   / / __ \| |  | | \ \        / /_   _| \ | |",
+                    "  \ \_/ / |  | | |  | |  \ \  /\  / /  | | |  \| |",
+                    "   \   /| |  | | |  | |   \ \/  \/ /   | | | . ` |",
+                    "    | | | |__| | |__| |    \  /\  /   _| |_| |\  |",
+                    "    |_|  \____/ \____/      \/  \/   |_____|_| \_|",
+                    "                                                  ",
+                    "                                                  " ]
+        for line in lines:
+            self.console.display_output(line)
+
+        lines= [   ("="*50),
+                    ('{:1}{:^48}{:1}'.format("|",f"WINNER: {player_name}","|")),
+                    ("="*50) ]
+
+        for line in lines:
+            self.console.display_output(line)          
+
+                                                  
+                                                  
+
+
     def game_over(self):
         """ Prints a "GAME OVER" message
         ARGS:
