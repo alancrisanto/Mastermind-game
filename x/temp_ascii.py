@@ -4,15 +4,15 @@ class AsciiArt:
     def __init__(self) -> None:
         pass
 
-    def good_job():
+    def good_job(self):
         #to be used when the guess is correct
         print("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ \n You got it, great job! \n")
 
-    def whoops():
+    def whoops(self):
         #to be used when the guess contains no right numbers
         print("¯\_(ツ)_/¯ \n Don't give up! \n")
 
-    def game_over():
+    def game_over(self):
         #for the end of game message
         print("┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼ \n"
             "███▀▀▀██┼███▀▀▀███┼███▀█▄█▀███┼██▀▀▀ \n"
@@ -32,7 +32,7 @@ class AsciiArt:
 # for testing
 def main():
     # Create a AsciiArt object
-    art = AsciiArt
+    art = AsciiArt()
     art.good_job()
     art.whoops()
     art.game_over()

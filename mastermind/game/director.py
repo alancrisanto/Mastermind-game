@@ -1,8 +1,9 @@
 from game.code_object import CodeObject
 from game.console import Console
-from game.ascii_art_n import AsciiArt # update with Tianna's code
-from game.arbiter_n import Arbiter # update with Felix's code
-from game.player_n import Player  # update with Alex's code
+from game.ascii_art import AsciiArt
+######
+from game.temp_a import Arbiter # update with Felix's code
+from game.player import Player
 import random
 
 class Director():
@@ -15,7 +16,7 @@ class Director():
         self.console = Console()
         self.code = CodeObject()
         self.arbiter = Arbiter()
-        self.ascii = AsciiArt()
+        self.art = AsciiArt()
 
         self.continue_playing = True
 
@@ -34,7 +35,7 @@ class Director():
         code = self.code.secret_code
         console = self.console
         arbiter = self.arbiter
-        ascii = self.ascii
+        art = self.art
 
         continue_playing = self.continue_playing
 
@@ -47,14 +48,19 @@ class Director():
 
         # make sure player count is valid
         player_count = console.take_input("How many players are playing? (1-10) ")
-        
-        try:
-            self.check_player_count(player_count)
-        except self.InvalidPlayerCount:
-            if player_count != "":
-                console.display_output(f"Invalid input: '{player_count}'")
-            console.display_output(f"Defaulting to {default_player_count} players")
-            player_count = default_player_count
+
+        if player_count == "":
+                console.display_output(f"Defaulting to {default_player_count} players")
+                player_count = default_player_count
+        else:        
+            try:
+                player_count = int(player_count)
+                self.check_player_count(player_count)
+
+            except (ValueError, self.InvalidPlayerCount):
+                console.display_output(f"Invalid input \"{player_count}\"")
+                console.display_output(f"Defaulting to {default_player_count} players.")
+                player_count = default_player_count
 
         console.display_output(f"\nStarting a {player_count}-player game.\n")
 
@@ -85,21 +91,20 @@ class Director():
                     self.victory_for(player)
                     break
 
-                # arbiter compares Player's guess
-                hint = arbiter.check_guess(code,guess)
+                # arbiter compares Player's guess and updates hint
+                player.last_hint = arbiter.check_guess(code,guess)
 
-                # display hints
+                # display all hints
                 self.display_hints(player_list)
 
-        test_smiley = ascii.smiley()
-        print(test_smiley)
-        console.display_output("GAME END")
+        art.game_over()
 
-    def check_player_count(self,player_count):
+    def check_player_count(self,input):
         """ Checks if player_count is valid
         """
         try:
-            if player_count == int(player_count) and player_count >= 1 and player_count <= 10:
+            player_count = int(input)
+            if player_count >= 1 and player_count <= 10:
                 pass
             else:
                 raise self.InvalidPlayerCount
@@ -155,8 +160,8 @@ class Director():
                 continue
         
         # record player's last guess
-
         player.last_guess = guess
+        
         return guess
 
     def display_hints(self, player_list):
