@@ -14,4 +14,3 @@ class Player():
         self.name = str(input_name)
         self.last_guess = '----'
         self.last_hint = '****'
-    
