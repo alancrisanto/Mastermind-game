@@ -60,7 +60,7 @@ class Director():
             print("code is: " + str(code))
 
         continue_playing = True
-        
+
         # start gameplay
         while continue_playing:
             for player in player_list:
@@ -82,13 +82,6 @@ class Director():
        
 
         art.game_over()
-
-
-        
-    class InvalidGuess(Exception):
-        """ Error when the guess is not a valid guess
-        """
-        pass
 
     def start_banner(self):
         """ Displays a banner at the start of the game
