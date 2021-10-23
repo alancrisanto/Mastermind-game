@@ -1,4 +1,4 @@
-class PlayerCount():
+class PlayerCount:
     """ A class of objects responsible for checking whether
     the entered number of players is within the acceptable range.
     ATTRIBUTES:

@@ -1,4 +1,4 @@
-class Arbiter():
+class Arbiter:
         """Responsible for taking player's guess, checking againnst the code, returning hint           
         ATTRIBUTES:
             none

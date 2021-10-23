@@ -2,7 +2,7 @@ import random
 if __name__ == "game.player":
     from game.console import Console
 
-class Player():
+class Player:
     """ Responsible for storing player's name, guesses, and hints
     ATTRIBUTES:
         max_name_length (INT)   : the maxmium allowed name length

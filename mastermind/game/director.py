@@ -75,6 +75,10 @@ class Director:
 
                     # check for victory
                     if guess == code:
+                        # update hint and display
+                        player.last_hint = f"{arbiter.check_guess(code,guess)} <==="
+                        self.display_hints(player_list)
+                        
                         continue_playing = False
                         # victory
                         art.you_win(player.name)
