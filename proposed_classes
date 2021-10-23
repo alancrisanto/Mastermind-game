@@ -1,0 +1,14 @@
+Proposed classes for our Mastermind program:
+Director()
+Arbiter()
+Console()
+AsciiArt()
+Player()
+Code()
+
+Director() - Responsible for controlling the flow of gameplay
+Arbiter() - Responsible for taking player's guess, checking aginst the code, returning hint
+Console() - Responsible for taking input and displaying output
+AsciiArt() - Responsible for displaying ASCII art and user-friendly messages.
+Player() - Keep track of the player's identity, and guesses
+Code() - To generate and store a four digit integer code (between 1000 and 9999)
